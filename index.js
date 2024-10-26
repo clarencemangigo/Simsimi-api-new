@@ -10,14 +10,14 @@ app.get('/sim', async(req, res, error) => {
   try {
     let path = `./sim.json`;
     let dataa = JSON.parse(fs.readFileSync(path));
-    let query = req.query.query;
+    let query = req.query.q;  // Use 'q' instead of 'query'
+    
     let similarities = Object.keys(dataa).map(question => ({
       question,
       similarity: stringSimilarity.compareTwoStrings(query, question)
     }));
     similarities.sort((a, b) => b.similarity - a.similarity); // Sort by similarity
 
-   
     let mostSimilarQuestion = similarities[0].question;
     let dataaa = dataa[mostSimilarQuestion][Math.floor(Math.random() * dataa[mostSimilarQuestion].length)];
 
